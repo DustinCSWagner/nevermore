@@ -1,7 +1,7 @@
 # Nevermore
 Use your computer's hosts file to block unwanted domains.
 
-!(nevermore logo)[./files/logo.png]
+![nevermore logo](https://github.com/DustinCSWagner/nevermore/raw/main/files/logo.png)
 
 This is an application written in [Crystal](https://crystal-lang.org) to update your PC's host file with [Stephen Black' host file](https://github.com/StevenBlack/hosts) to block Ads, etc.
 You can can also specify other hosts files found on the internet, use a local copy you create yourself, or reset your hosts file back to defaults.
