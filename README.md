@@ -16,11 +16,12 @@ There will be releases built for the following:
 # Usage
 Currently this is a command-line-interface application, there is no graphical component.
 
-Usage: nevermore [arguments]
-    -v, --version                    Show the version
-    -b, --basic                      Get the basic hosts file that will block Ads
-    -e, --everything                 Get the hosts file that blocks fake news, gambling, porn, and social media
-    -r, --reset                      Reset the hosts file
-    -h, --help                       Show this help
-    -d HTTPFILE, --download=HTTPFILE Download a hosts file via http or https
-    -l LOCALFILE, --local=LOCALFILE  Overwrite your hosts file using a local file
+Usage: nevermore [arguments]  
+    -v, --version                    Show the version  
+    -b, --basic                      Get the basic hosts file that will block Ads  
+    -e, --everything                 Get the hosts file that blocks fake news, gambling, porn, and social media  
+    -r, --reset                      Reset the hosts file  
+    -h, --help                       Show this help  
+    -d HTTPFILE, --download=HTTPFILE Download a hosts file via http or https  
+    -l LOCALFILE, --local=LOCALFILE  Overwrite your hosts file using a local file  
+  
