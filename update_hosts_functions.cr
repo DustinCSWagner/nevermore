@@ -1,3 +1,5 @@
+require "http/client"
+
 def download_hosts(uri)
   HTTP::Client.get uri do |response|
     File.open("hosts", "w") do |file|
