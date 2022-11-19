@@ -13,13 +13,12 @@
 # basic hosts file: "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
 # everything hosts file: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts"
 
-require "http"
 require "option_parser"
 require "./update_hosts_functions.cr"
 
 # paramaters
 option = "basic"
-version = "Version 0.0 Testing"
+version = "Version 0.1"
 download_file = ""
 local_file = ""
 os_info = get_os
@@ -56,6 +55,7 @@ end
 # Driver code
 if ["basic", "everything", "download", "local"].includes?(option)
   get_hosts_file(option, download_file, local_file)
+  #blend_hosts
   write_hosts_file(os_info)
   reset_network(os_info)
 elsif option == "reset"

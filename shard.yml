@@ -1,0 +1,16 @@
+name: nevermore
+version: 0.1.0
+
+authors:
+  - Dustin CS Wagner
+
+description: |
+  Update your hosts file to block unwanted domains.
+
+targets:
+    nevermore:
+        main: nevermore.cr
+
+crystal: 1.6.1
+
+license: GPLv3
