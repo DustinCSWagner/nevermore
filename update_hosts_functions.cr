@@ -38,21 +38,6 @@ def download_hosts(uri)
   run_proc("curl", ["--output", "hosts", uri])
 end
 
-# def download_hosts(uri)
-#   begin
-#     context = OpenSSL::SSL::Context::Client.insecure
-#     client = HTTP::Client.new(URI.parse(uri), nil)
-#     client.get(uri) do |response|
-#       File.open("hosts", "w") do |file|
-#         IO.copy response.body_io, file
-#       end
-#     end
-#   rescue OpenSSL::SSL::Error
-#     STDERR.puts "Can't visit uri: " + uri
-#     exit
-#   end
-# end
-
 def copy_rw(source, dest)
   File.open(source, "r") do |s|
     File.open(dest, "w") do |d|
@@ -82,19 +67,19 @@ end
 def write_hosts_file(operating_sys)
   if operating_sys.includes?("Linux")
     puts "INFO: Writing Linux hosts file"
-    copy_rw("new_hosts", "/etc/hosts")
+    copy_rw("hosts", "/etc/hosts")
   elsif operating_sys.includes?("Windows")
     puts "INFO: Writing Windows hosts file"
-    copy_rw("new_hosts", "C:\\Windows\\System32\\Drivers\\etc\\hosts")
+    copy_rw("hosts", "C:\\Windows\\System32\\Drivers\\etc\\hosts")
   elsif operating_sys.includes?("Darwin")
     puts "INFO: Writing Mac hosts file"
-    copy_rw("new_hosts", "/etc/hosts")
+    copy_rw("hosts", "/etc/hosts")
   elsif operating_sys.includes?("FreeBSD")
     puts "INFO: Writing BSD hosts file"
-    copy_rw("new_hosts", "/etc/hosts")
+    copy_rw("hosts", "/etc/hosts")
   else
     puts "WARNING: Unrecognized OS detected, attempting to update /etc/hosts"
-    copy_rw("new_hosts", "/etc/hosts")
+    copy_rw("hosts", "/etc/hosts")
   end
 end
 
@@ -216,57 +201,6 @@ def reset_network(operating_sys)
     # operating_sys.chars.each do |c|
     # puts "char: " + c + " unicode: " + c.unicode_escape
     # end
-  end
-end
-
-# blend in the top domains and then allow those in the whitelist
-# 1,158,532 gross to 1,157,541 unique to 1,151,306 after white-listing
-def blend_hosts
-  hosts = File.read_lines("hosts")
-  million = File.read_lines("top_million_sites.txt")
-  whitelist = File.read_lines("whitelist.txt")
-
-  #save first part
-  hosts_head = hosts[0..31]
-
-  # Trim first part that contains defaults
-  hosts.delete_at(0, 31)
-
-  host_blacklist = Array(String).new()
-  hosts.each do |h|
-      if h.starts_with?("0.0.0.0")
-          host_blacklist.push(h.split[1])
-      end
-  end
-
-  million = million[0..100000]
-
-  host_blacklist.concat(million)
-  host_blacklist.uniq!
-
-  # take out whitelist
-  host_blacklist.each do |h|
-      whitelist.each do |w|
-          if h.includes?(w)
-              host_blacklist.delete(h)
-          end
-      end
-  end
-
-  #delete the old file if it exits
-  if File.exists?("new_hosts")
-      File.delete("new_hosts")
-  end
-
-  # write the new new_hosts file
-  hosts_head.each do |h|
-      File.write("new_hosts", h + "\n", mode: "a")
-  end
-
-  host_blacklist.each do |h|
-      unless h.starts_with?("#")
-        File.write("new_hosts", "0.0.0.0 " + h + "\n", mode: "a")
-      end
   end
 end
 

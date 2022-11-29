@@ -55,7 +55,6 @@ end
 # Driver code
 if ["basic", "everything", "download", "local"].includes?(option)
   get_hosts_file(option, download_file, local_file)
-  #blend_hosts
   write_hosts_file(os_info)
   reset_network(os_info)
 elsif option == "reset"
